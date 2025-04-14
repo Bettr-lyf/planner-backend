@@ -16,7 +16,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 # MongoDB connection
-client = AsyncIOMotorClient(os.getenv('MONGODB_URI', 'mongodb://localhost:27017/'))
+client = AsyncIOMotorClient(os.getenv('MONGODB_URI', 'mongodb://0.0.0.0:27017/'))
 db = client.planner_db
 
 class Goal(BaseModel):
