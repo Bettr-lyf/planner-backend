@@ -1,0 +1,6 @@
+run = "fastapi dev app.py"
+[nix]
+channel = "stable-24_05"
+
+[deployment]
+run = ["sh", "-c", "fastapi dev app.py"]
