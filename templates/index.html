@@ -1,0 +1,42 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard">
+    <section class="goals-section">
+        <h2>Daily Goals</h2>
+        <div class="goals-list">
+            {% for goal in goals.daily %}
+                <div class="goal-card">
+                    <h3>{{ goal.title }}</h3>
+                    <p>{{ goal.description }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="goals-section">
+        <h2>Weekly Goals</h2>
+        <div class="goals-list">
+            {% for goal in goals.weekly %}
+                <div class="goal-card">
+                    <h3>{{ goal.title }}</h3>
+                    <p>{{ goal.description }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="goals-section">
+        <h2>Monthly Goals</h2>
+        <div class="goals-list">
+            {% for goal in goals.monthly %}
+                <div class="goal-card">
+                    <h3>{{ goal.title }}</h3>
+                    <p>{{ goal.description }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+{% endblock %}

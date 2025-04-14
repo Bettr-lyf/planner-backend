@@ -4,3 +4,15 @@ channel = "stable-24_05"
 
 [deployment]
 run = ["sh", "-c", "fastapi dev app.py"]
+
+[workflows]
+runButton = "Run"
+
+[[workflows.workflow]]
+name = "Run"
+author = 18507883
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python app.py"
