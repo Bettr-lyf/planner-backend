@@ -10,3 +10,5 @@ class Reflection(Base):
     rating = Column(Integer)
     comment = Column(String)
     created_at = Column(DateTime, default=func.now())
+
+    __table_args__ = {'extend_existing': True} 
