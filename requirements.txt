@@ -40,3 +40,4 @@ flask
 motor
 pymongo
 sqlalchemy
+psycopg2-binary

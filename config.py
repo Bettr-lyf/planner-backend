@@ -1,10 +1,7 @@
 
-import os
-from dotenv import load_dotenv
+from pydantic_settings import BaseSettings
 
-load_dotenv()
-
-class Config:
-    MONGODB_URI = os.getenv('MONGODB_URI', 'mongodb://localhost:27017/')
-    SECRET_KEY = os.getenv('SECRET_KEY', 'dev-key-123')
-    DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
+class Settings(BaseSettings):
+    DATABASE_URL: str = "postgresql://runner@localhost:5432/mydb"
+    
+settings = Settings()

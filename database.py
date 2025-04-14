@@ -1,18 +1,22 @@
-
-from sqlalchemy import create_engine, MetaData
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+from sqlalchemy.orm import sessionmaker, declarative_base
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Text
 from datetime import datetime
 import os
-from databases import Database
+from config import settings
 
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://runner@localhost:5432/mydb")
-database = Database(DATABASE_URL)
-metadata = MetaData()
+DATABASE_URL = settings.DATABASE_URL.replace('postgresql://', 'postgresql+asyncpg://')
 
-# SQLAlchemy engine for migrations
-engine = create_engine(DATABASE_URL)
+engine = create_async_engine(DATABASE_URL, echo=True)
+AsyncSessionLocal = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 Base = declarative_base()
+
+async def get_db():
+    async with AsyncSessionLocal() as session:
+        try:
+            yield session
+        finally:
+            await session.close()
 
 class Goal(Base):
     __tablename__ = "goals"
@@ -32,6 +36,5 @@ class Reflection(Base):
     comment = Column(Text)
     created_at = Column(DateTime, default=datetime.utcnow)
 
-# Create tables
-def init_db():
-    Base.metadata.create_all(bind=engine)
+#  init_db function removed as it's not directly compatible with the async engine.
+# Database creation should be handled separately, potentially during application startup.
