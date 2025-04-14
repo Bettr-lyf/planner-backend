@@ -11,4 +11,4 @@ class Reflection(Base):
     comment = Column(String)
     created_at = Column(DateTime, default=func.now())
 
-    __table_args__ = {'extend_existing': True} 
+    __table_args__ = {'extend_existing': True}
