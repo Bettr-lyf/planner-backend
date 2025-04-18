@@ -3,6 +3,17 @@ from tortoise import BaseDBAsyncClient
 
 async def upgrade(db: BaseDBAsyncClient) -> str:
     return """
+        CREATE TABLE IF NOT EXISTS "users" (
+    "id" SERIAL NOT NULL PRIMARY KEY,
+    "ulid" VARCHAR(26) NOT NULL UNIQUE,
+    "name" VARCHAR(255) NOT NULL,
+    "gender" SMALLINT,
+    "email" VARCHAR(255) NOT NULL UNIQUE,
+    "password" VARCHAR(255) NOT NULL,
+    "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+COMMENT ON COLUMN "users"."gender" IS 'MALE: 0\nFEMALE: 1';
         CREATE TABLE IF NOT EXISTS "tasks" (
     "id" SERIAL NOT NULL PRIMARY KEY,
     "ulid" UUID NOT NULL UNIQUE,
@@ -14,15 +25,10 @@ async def upgrade(db: BaseDBAsyncClient) -> str:
     "completed" BOOL NOT NULL DEFAULT False,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-CREATE TABLE IF NOT EXISTS "aerich" (
-    "id" SERIAL NOT NULL PRIMARY KEY,
-    "version" VARCHAR(255) NOT NULL,
-    "app" VARCHAR(100) NOT NULL,
-    "content" JSONB NOT NULL
 );"""
 
 
 async def downgrade(db: BaseDBAsyncClient) -> str:
     return """
-        """
+        DROP TABLE IF EXISTS "users";
+        DROP TABLE IF EXISTS "tasks";"""
