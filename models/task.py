@@ -1,7 +1,7 @@
-from tortoise.models import Model
+from packages.base_model import BaseModel
 from tortoise import fields
 
-class Task(Model):
+class Task(BaseModel):
     id = fields.IntField(pk=True)
     ulid = fields.UUIDField(unique=True)
     title = fields.CharField(max_length=255)

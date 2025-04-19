@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field
 from datetime import datetime
 from models.user import GenderEnum
 
-class RegisterResponse(BaseModel):
+class UserResponse(BaseModel):
     id: str = Field(..., alias="ulid")
     name: str
     email: str
@@ -11,5 +11,9 @@ class RegisterResponse(BaseModel):
     updated_at: datetime
 
     class Config:
-        orm_mode = True
-        allow_population_by_field_name = True
+        from_attributes = True
+        validate_by_name = True
+
+class AuthResponse(BaseModel):
+    user: UserResponse
+    token: str

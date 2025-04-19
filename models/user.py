@@ -1,12 +1,13 @@
 from enum import IntEnum
-from tortoise.models import Model
 from tortoise import fields
+
+from packages.base_model import BaseModel
 
 class GenderEnum(IntEnum):
     MALE = 0
     FEMALE = 1
 
-class User(Model):
+class User(BaseModel):
     id = fields.IntField(pk=True)
     ulid = fields.CharField(max_length=26, unique=True)
     name = fields.CharField(max_length=255)

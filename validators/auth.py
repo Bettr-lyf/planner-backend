@@ -7,3 +7,7 @@ class RegisterRequest(BaseModel):
     password:str = constr(max_length=16, min_length=8)
     gender: GenderEnum
     confirmPassword: str
+
+class LoginRequest(BaseModel):
+    email: EmailStr
+    password: str = constr(max_length=16, min_length=8)
