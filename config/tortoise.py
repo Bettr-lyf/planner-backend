@@ -1,7 +1,8 @@
 from tortoise import Tortoise
+from . import app_config
 
 TORTOISE_ORM = {
-    "connections": {"default": 'postgres://postgres:1234567890@localhost:5432/bettr_lyf'},
+    "connections": {"default": f'{app_config.db.pg.client}://{app_config.db.pg.user}:{app_config.db.pg.password}@{app_config.db.pg.host}:{app_config.db.pg.port}/{app_config.db.pg.name}'},
     "apps": {
         "models": {
             "models": ["models.user", "models.task", "aerich.models"],

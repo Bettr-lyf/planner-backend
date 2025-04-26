@@ -12,6 +12,6 @@ def verify_password(input: str, hash: str) -> bool:
 
 def generate_token(payload: dict):
     to_encode = payload.copy()
-    to_encode['exp'] = datetime.now(timezone.utc) + timedelta(days=1)
+    to_encode['exp'] = datetime.now(timezone.utc) + timedelta(minutes=60 * 6)
     return jwt.encode(to_encode, 'secret', algorithm='HS256')
     
